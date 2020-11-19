@@ -1,4 +1,11 @@
 <?php
+error_reporting(0);
+function startsWith ($string, $startString) 
+{ 
+    $len = strlen($startString); 
+    return (substr($string, 0, $len) === $startString); 
+}
+
 $tok = '1432156605:AAElwtSqwybooXvE3Pnh0l5uhVwu0zWsV4Q';
 
 $update = file_get_contents('php://input');
@@ -11,7 +18,7 @@ $fname = $update['message']['from']['first_name'];
 $lname = $update['message']['from']['last_name'];
 $uname = $update['message']['from']['username'];
 echo $typ = $update['message']['chat']['type'];
-$text = $update['message']['text'];
+echo $text = $update['message']['text'];
 $fullname = ''.$fname.''.$lname.'';
 
 ##################NEW MEMBER DATA ################
