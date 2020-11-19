@@ -162,10 +162,11 @@ echo $response2;
 }
 }
 elseif(startsWith($text,'/id')){
-$mussu = "Id Of This Chat => $cid";
+$mussu = "This Chat's Id Is : <code>$cid</code>";
 $post4 =[
     	'chat_id' => ''.$uid.'',
         'text' => ''.$mussu.'',
+        'parse_mode'=>'HTML',
         'reply_to_message_id'=>''.$mid.'',
 ];
     $curl3 = curl_init();
@@ -178,4 +179,5 @@ $post4 =[
 $response3 = curl_exec($curl3);
 echo $response3;	
 }
+
 ?>
