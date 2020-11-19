@@ -92,7 +92,7 @@ curl_close($ch);
 echo $output;
 }
 
-elseif ($text == true && $text == '/start' || $text == true && $text = '/start@MissNatasha_Bot') {
+elseif ($text == '/start' || $text = '/start@MissNatasha_Bot' || $text= '/start@MissNatasha-bot') {
 	$start_message = "
 	<b>Hey $fullname ! Nice To Meet You, Well I am <u>Natasha</u>, A 9 Year Old Girl.</b>
 
