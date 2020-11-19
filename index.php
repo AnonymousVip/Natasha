@@ -161,4 +161,21 @@ $response2 = curl_exec($curl2);
 echo $response2;
 }
 }
+elseif(startsWith($text,'/id')){
+$mussu = "Id Of This Chat => $cid";
+$post4 =[
+    	'chat_id' => ''.$uid.'',
+        'text' => ''.$mussu.'',
+        'reply_to_message_id'=>''.$mid.'',
+];
+    $curl3 = curl_init();
+    curl_setopt($curl3, CURLOPT_URL,"https://api.telegram.org/bot$tok/sendMessage?");
+    curl_setopt($curl3, CURLOPT_POST, 1);
+    curl_setopt($curl3, CURLOPT_POSTFIELDS, $post4);
+    curl_setopt($curl3, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl3, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($curl3, CURLOPT_SSL_VERIFYPEER, 0);
+$response3 = curl_exec($curl3);
+echo $response3;	
+}
 ?>
