@@ -23,6 +23,9 @@ function startsWith ($string, $startString)
     $len = strlen($startString); 
     return (substr($string, 0, $len) === $startString); 
 }
+global $dadel;
+$update = file_get_contents('php://input');
+$update = json_decode($update, true);
 
 $update = file_get_contents('php://input');
 $update = json_decode($update, true);
@@ -44,6 +47,7 @@ $nfname = $update['message']['new_chat_member']['first_name'];
 $nlname = $update['message']['new_chat_member']['last_name'];
 $nuname = $update['message']['new_chat_member']['username'];
 $nfullname = ''.$nfname.''.$nlname.'';
+$pid = $update['message']['reply_to_message']['message_id'];
 
 
 
@@ -114,23 +118,12 @@ $json1 = json_decode($output,true);
 curl_close($ch);
 echo $output;
 }
-
-elseif ($text == '/start' || $text == '/start@MissNatasha_Bot' || $text == '/start@MissNatasha-bot') {
+elseif ($text == '/start' || $text == '/start@MissNatasha_Bot' || $text== '/start@MissNatasha_Bot') {
 	$start_message = "
 	<b>Hey $fullname ! Nice To Meet You, Well I am <u>Natasha</u>, A 9 Year Old Girl.</b>
-
-
-
 	<b><u>I can Help You In Wishing Your New Group Members...</u></b>
-
-
 	<b>To Add Me In Your Group Kindly Click The [Add Me To Group] Button Below..
-
-
 	Since I Am Small I can Only Say Wishes And Goodbye's To People...</b>
-
-
-
 	P.S => Custom Welcome And Goodbye Messages Will Be Available Soon 🥰🥰🥰";
 
 	$keyboard = [
