@@ -334,4 +334,54 @@ if ($dadel['description'] == true) {
 echo botaction("sendMessage", $desa);
 }
 }
+elseif (startsWith($text,'/dp')) {
+	$check = $update['message']['reply_to_message'];
+	$uud = $update['message']['reply_to_message']['from']['id'];
+	 if ($check == true) {
+		$da=['user_id'=>"$uud"];
+		botaction("getUserProfilePhotos",$da);
+		 $count = $dadel['result']['total_count'];
+		 if ($count == 0) {
+		 	$cmsd = [
+		 		'chat_id'=> $cid,
+		 		'reply_to_message_id'=> $mid,
+		 		'text' => "That Nibba Has No DP's!!"
+		 	];
+		 	botaction("sendMessage", $cmsd);
+		 }
+		 else{
+		$dad = 0;
+		$out = '';
+		for ($i=0; $i <$count ; $i++) { 
+			  $fid = $dadel['result']['photos'][$dad]['0']['file_id'];
+			 $dams =   "$fid,";
+			  $out .= $dams;
+			 // echo $out;
+			 $dad++;
+		}
+		$exout1 = explode(',', $out);
+		$exout = array_pop($exout1);
+		print_r($exout);
+		foreach ($exout as $key) {
+			$snp = [
+				'chat_id'=>"$cid",
+			    'photo'=>"$key",
+			];
+			 botaction("sendPhoto", $snp);
+			 print_r($dadel);
+		}
+
+}
+}
+	else{
+		$mean=[
+    	'chat_id' => ''.$cid.'',
+    	'text' => "Reply To A User's Message",
+        'reply_to_message_id'=>''.$mid.'',
+];
+	botaction("sendMessage",$mean);
+	print_r($dadel);
+	}
+
+}
 ?>
