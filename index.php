@@ -1,6 +1,6 @@
 <?php
 error_reporting(0);
-$tok = '1460475980:AAFoK03PMQ4T8IQUv-IQzVfRml67iueDPk4';
+$tok = '1432156605:AAElwtSqwybooXvE3Pnh0l5uhVwu0zWsV4Q';
 
 function botaction($method, $data){
 	global $tok;
@@ -118,7 +118,7 @@ $json1 = json_decode($output,true);
 curl_close($ch);
 echo $output;
 }
-elseif ($text == '/start' || $text == '/start@MissNatasha_Bot' || $text== '/start@MissNatasha_Bot') {
+elseif ($text == '/start' || $text == '/start@MissNatasha_Bot' || $text== '/start@MissNatasha_bot') {
 	$start_message = "
 	<b>Hey $fullname ! Nice To Meet You, Well I am <u>Natasha</u>, A 9 Year Old Girl.</b>
 	<b><u>I can Help You In Wishing Your New Group Members...</u></b>
