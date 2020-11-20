@@ -1,12 +1,28 @@
 <?php
 error_reporting(0);
+$tok = '1460475980:AAFoK03PMQ4T8IQUv-IQzVfRml67iueDPk4';
+
+function botaction($method, $data){
+	global $tok;
+	global $dadel;
+	global $dueto;
+    $url = "https://api.telegram.org/bot$tok/$method";
+    $curld = curl_init();
+    curl_setopt($curld, CURLOPT_POST, true);
+    curl_setopt($curld, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($curld, CURLOPT_URL, $url);
+    curl_setopt($curld, CURLOPT_RETURNTRANSFER, true);
+    $output = curl_exec($curld);
+    curl_close($curld);
+    $dadel = json_decode($output,true);
+    $dueto = $dadel['description'];
+    return $output;
+}
 function startsWith ($string, $startString) 
 { 
     $len = strlen($startString); 
     return (substr($string, 0, $len) === $startString); 
 }
-
-$tok = '1432156605:AAElwtSqwybooXvE3Pnh0l5uhVwu0zWsV4Q';
 
 $update = file_get_contents('php://input');
 $update = json_decode($update, true);
@@ -179,5 +195,150 @@ $post4 =[
 $response3 = curl_exec($curl3);
 echo $response3;	
 }
+elseif (startsWith($text,'/dul')) {
+	$reply_message = $update['message']['reply_to_message'];
+	$mi2d = $update['message']['reply_to_message']['message_id'];
+	if ($reply_message == true) {
+		$pose2 =[
+    	'chat_id' => ''.$cid.'',
+        'message_id'=>''.$mi2d.'',
+];
+		$curl232 = curl_init();
+    curl_setopt($curl232, CURLOPT_URL,"https://api.telegram.org/bot$tok/deleteMessage?");
+    curl_setopt($curl232, CURLOPT_POST, 1);
+    curl_setopt($curl232, CURLOPT_POSTFIELDS, $pose2);
+    curl_setopt($curl232, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl232, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($curl232, CURLOPT_SSL_VERIFYPEER, 0);
+$resp22 = curl_exec($curl232);
+echo $resp22;
 
+$pose23 =[
+    	'chat_id' => ''.$cid.'',
+        'message_id'=>''.$mid.'',
+];
+print_r($pose23);
+		$curl2323 = curl_init();
+    curl_setopt($curl2323, CURLOPT_URL,"https://api.telegram.org/bot$tok/deleteMessage?");
+    curl_setopt($curl2323, CURLOPT_POST, 1);
+    curl_setopt($curl2323, CURLOPT_POSTFIELDS, $pose23);
+    curl_setopt($curl2323, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl2323, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($curl2323, CURLOPT_SSL_VERIFYPEER, 0);
+$resp223 = curl_exec($curl2323);
+echo $resp223;
+$repo = json_decode($resp223,true);
+$exception =  $repo['description'];
+
+ if ($exception == true) {
+    $ch = curl_init();
+    $messw = urlencode("Make Sure That I am Admin In this Group.. I Am Not Able To Delete Messages");
+    curl_setopt($ch, CURLOPT_URL,"https://api.telegram.org/bot$tok/sendMessage?chat_id=$cid&text=$messw&reply_to_message_id=$mid");
+  curl_setopt($ch, CURLOPT_POST, false); 
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+$output = curl_exec($ch); 
+$json1 = json_decode($output,true);
+curl_close($ch);
+//echo $output;
+ }
+		
+	}
+	else{
+		$pose =[
+    	'chat_id' => ''.$uid.'',
+        'text' => 'Reply To A Message To Delete It',
+        'reply_to_message_id'=>''.$mid.'',
+];
+    $curl23 = curl_init();
+    curl_setopt($curl23, CURLOPT_URL,"https://api.telegram.org/bot$tok/sendMessage?");
+    curl_setopt($curl23, CURLOPT_POST, 1);
+    curl_setopt($curl23, CURLOPT_POSTFIELDS, $pose);
+    curl_setopt($curl23, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl23, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($curl23, CURLOPT_SSL_VERIFYPEER, 0);
+$resp2 = curl_exec($curl23);
+echo $resp2;
+	}
+}
+elseif(startsWith($text,'/pun')){
+	$pose1z1 =[
+    	'chat_id' => ''.$cid.'',
+    	'message_id' => ''.$pid.'',
+];
+    $curl2a = curl_init();
+    curl_setopt($curl2a, CURLOPT_URL,"https://api.telegram.org/bot$tok/pinChatMessage?");
+    curl_setopt($curl2a, CURLOPT_POST, 1);
+    curl_setopt($curl2a, CURLOPT_POSTFIELDS, $pose1z1);
+    curl_setopt($curl2a, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl2a, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($curl2a, CURLOPT_SSL_VERIFYPEER, 0);
+$resp2a = curl_exec($curl2a);
+echo $resp2a;
+$meswa = json_decode($resp2a,true);
+$reason = $meswa['description'];
+if ($meswa['description'] == true) {
+	$pose11z1 =[
+    	'chat_id' => ''.$cid.'',
+    	'text' => "Unable To Pin Message \nReason => $reason",
+        'reply_to_message_id'=>''.$mid.'',
+];
+    $curl12a = curl_init();
+    curl_setopt($curl12a, CURLOPT_URL,"https://api.telegram.org/bot$tok/sendMessage?");
+    curl_setopt($curl12a, CURLOPT_POST, 1);
+    curl_setopt($curl12a, CURLOPT_POSTFIELDS, $pose11z1);
+    curl_setopt($curl12a, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl12a, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($curl12a, CURLOPT_SSL_VERIFYPEER, 0);
+$resp21a = curl_exec($curl12a);
+echo $resp21a;
+}
+}
+elseif(startsWith($text,'/upun')){
+	$fre =[
+    	'chat_id' => ''.$cid.'',
+];
+print_r($fre);
+    $der = curl_init();
+    curl_setopt($der, CURLOPT_URL,"https://api.telegram.org/bot$tok/unpinChatMessage?");
+    curl_setopt($der, CURLOPT_POST, 1);
+    curl_setopt($der, CURLOPT_POSTFIELDS, $fre);
+    curl_setopt($der, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($der, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($der, CURLOPT_SSL_VERIFYPEER, 0);
+$resp2a2 = curl_exec($der);
+echo $resp2a2;
+$meswa2 = json_decode($resp2a,true);
+$reason2 = $meswa['description'];
+if ($meswa2['description'] == true) {
+	$pose11z12 =[
+    	'chat_id' => ''.$cid.'',
+    	'text' => "Unable To UnPin Message \nReason => $reason2",
+        'reply_to_message_id'=>''.$mid.'',
+];
+    $curl12a2 = curl_init();
+    curl_setopt($curl12a2, CURLOPT_URL,"https://api.telegram.org/bot$tok/sendMessage?");
+    curl_setopt($curl12a2, CURLOPT_POST, 1);
+    curl_setopt($curl12a2, CURLOPT_POSTFIELDS, $pose11z12);
+    curl_setopt($curl12a2, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl12a2, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($curl12a2, CURLOPT_SSL_VERIFYPEER, 0);
+$resp21a2 = curl_exec($curl12a2);
+echo $resp21a2;
+}
+}
+elseif (startsWith($text,'/uall')) {
+	$free =[
+    	'chat_id' => ''.$cid.'',
+];
+echo botaction("unpinAllChatMessages", $free);
+echo $output['description'];
+if ($dadel['description'] == true) {
+	$desa =[
+    	'chat_id' => ''.$cid.'',
+    	'text' => "Unable To UnPin Messages \nReason => $dueto",
+        'reply_to_message_id'=>''.$mid.'',
+];
+echo botaction("sendMessage", $desa);
+}
+}
 ?>
