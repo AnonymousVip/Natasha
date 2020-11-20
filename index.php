@@ -359,16 +359,13 @@ elseif (startsWith($text,'/dp')) {
 			 // echo $out;
 			 $dad++;
 		}
-		$exout1 = explode(',', $out);
-		$exout = array_pop($exout1);
-		print_r($exout);
+		$exout = explode(',', $out);
 		foreach ($exout as $key) {
 			$snp = [
 				'chat_id'=>"$cid",
 			    'photo'=>"$key",
 			];
 			 botaction("sendPhoto", $snp);
-			 print_r($dadel);
 		}
 
 }
