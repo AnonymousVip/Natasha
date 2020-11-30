@@ -417,4 +417,18 @@ if (startsWith($text,'/ping')) {
 	botaction("editMessageText",$ping_edit_message);
  print_r($dadel);
 }
+if(startsWith($text,'/p')){
+	// echo $reply_message_id;
+	// echo $mid;
+	$start_purge = (int)$reply_message_id;
+	$end_purge = (int)$mid+1;
+	for ($i=$start_purge; $i <$end_purge ; $i++) { 
+		$purge_message = [
+			'chat_id'=>$cid,
+			'message_id'=>$i
+		];
+		botaction("deleteMessage",$purge_message);
+		print_r($dadel);
+	}
+}
 ?>
