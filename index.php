@@ -48,7 +48,28 @@ $nlname = $update['message']['new_chat_member']['last_name'];
 $nuname = $update['message']['new_chat_member']['username'];
 $nfullname = ''.$nfname.''.$nlname.'';
 $pid = $update['message']['reply_to_message']['message_id'];
-
+#################################################
+    $lfname = $update['message']['left_chat_member']['first_name'];
+    $llname = $update['message']['left_chat_member']['last_name'];
+$reply_message = $update['message']['reply_to_message'];
+$reply_message_id = $update['message']['reply_to_message']['message_id'];
+$reply_message_user_id = $update['message']['reply_to_message']['from']['id'];
+$reply_message_text = $update['message']['reply_to_message']['text'];
+$reply_message_user_fname = $update['message']['reply_to_message']['from']['first_name'];
+$reply_message_user_lname = $update['message']['reply_to_message']['from']['last_name'];
+$reply_message_user_uname = $update['message']['reply_to_message']['from']['username'];
+#######################################################################################
+###########################CALL BACK DATA##############################################
+$callback = $update['callback_query'];
+$callback_id = $update['callback_query']['id'];
+$callback_from_id = $update['callback_query']['from']['id'];
+$callback_from_uname = $update['callback_query']['from']['username'];
+$callback_from_fname = $update['callback_query']['from']['first_name'];
+$callback_from_lname = $update['callback_query']['from']['last_name'];
+$callback_user_data = $update['callback_query']['data'];
+$callback_message_id = $update['callback_query']['message']['id'];
+$cbid = $update['callback_query']['message']['chat']['id'];
+$cbmid = $update['callback_query']['message']['message_id'];
 
 
 
@@ -417,18 +438,54 @@ if (startsWith($text,'/ping')) {
 	botaction("editMessageText",$ping_edit_message);
  print_r($dadel);
 }
-if(startsWith($text,'/p')){
-	// echo $reply_message_id;
-	// echo $mid;
-	$start_purge = (int)$reply_message_id;
-	$end_purge = (int)$mid+1;
-	for ($i=$start_purge; $i <$end_purge ; $i++) { 
-		$purge_message = [
-			'chat_id'=>$cid,
-			'message_id'=>$i
-		];
-		botaction("deleteMessage",$purge_message);
-		print_r($dadel);
-	}
+if (startsWith($text,'/past')) {
+    if ($reply_message == true) {
+$paste = [
+'content'=> $reply_message_text
+];
+  $curl3 = curl_init();
+    curl_setopt($curl3, CURLOPT_URL,"https://nekobin.com/api/documents");
+    curl_setopt($curl3, CURLOPT_POST, 1);
+    curl_setopt($curl3, CURLOPT_POSTFIELDS, $paste);
+    curl_setopt($curl3, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl3, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($curl3, CURLOPT_SSL_VERIFYPEER, 0);
+$response3 = curl_exec($curl3);
+$json = json_decode($response3,true);
+
+if ($json['ok']== '1') {
+    $key = $json['result']['key'];
+    $urrl = "https://nekobin.com/$key";
+    $raw = "https://nekobin.com/raw/$key";
+    $textt = "Pasted Successfully To *Nekobin*!! \n<b>Paste Url</b> : $urrl\n<b>Raw Url</b> :$raw";
+    $send_paste = [
+        'chat_id'=>$cid,
+        'text'=>$textt,
+        'parse_mode'=>'HTML',
+        'reply_to_message_id'=>$mid,
+        'disable_web_page_preview'=>'True',
+    ];
+    botaction("sendMessage",$send_paste);
+}
+else{
+    $error_paste_text = $json['error'];
+    $error_paste = [
+        'chat_id'=>$cid,
+        'text'=>$error_paste_text,
+        'reply_to_message_id'=>$mid,
+    ];
+    botaction("sendMessage",$error_paste);
+    }
+}
+else{
+    $reply_error = [
+        'chat_id'=>$cid,
+        'text'=>'Whadya Want To Paste????',
+        'reply_to_message_id'=>$mid
+    ];
+    botaction("sendMessage",$reply_error);
+}
+}
+
 }
 ?>
