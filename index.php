@@ -486,6 +486,4 @@ else{
     botaction("sendMessage",$reply_error);
 }
 }
-
-}
 ?>
